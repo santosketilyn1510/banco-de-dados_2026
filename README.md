@@ -1,7 +1,7 @@
 # banco-de-dados_2026
 
-#escola
-#conceitual escola: https://app.brmodeloweb.com/#!/publicview/69d7c309e56bc192cf505d0b
+escola
+conceitual escola: https://app.brmodeloweb.com/#!/publicview/69d7c309e56bc192cf505d0b
 lógico escola: https://app.brmodeloweb.com/#!/publicview/69d7c326e56bc192cf505d22 
 
 imobiliaria
