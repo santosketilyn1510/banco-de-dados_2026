@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Maio-2026 às 17:23
+-- Tempo de geração: 11-Jun-2026 às 17:27
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.0.25
 
@@ -34,21 +34,40 @@ CREATE TABLE `categorias` (
   `categoria` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Extraindo dados da tabela `categorias`
+--
+
+INSERT INTO `categorias` (`id_categoria`, `categoria`) VALUES
+(1, 'eletronicos'),
+(2, 'roupas'),
+(3, 'alimentos'),
+(4, 'limpeza'),
+(5, 'higiene');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `itens`
+-- Estrutura da tabela `produtos`
 --
 
-CREATE TABLE `itens` (
+CREATE TABLE `produtos` (
   `id_produto` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `preco` decimal(10,2) NOT NULL,
-  `qntd` int(11) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL,
   `marca` varchar(255) DEFAULT NULL,
   `observacoes` varchar(255) DEFAULT NULL,
-  `id_categoria` int(11) DEFAULT NULL
+  `id_categoria` int(11) DEFAULT NULL,
+  `data_cadastro` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id_produto`, `nome`, `preco`, `quantidade`, `marca`, `observacoes`, `id_categoria`, `data_cadastro`) VALUES
+(1, 'miojo', '3.99', 50, 'nissin', '', 3, '0000-00-00');
 
 --
 -- Índices para tabelas despejadas
@@ -61,9 +80,9 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id_categoria`);
 
 --
--- Índices para tabela `itens`
+-- Índices para tabela `produtos`
 --
-ALTER TABLE `itens`
+ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id_produto`),
   ADD KEY `id_categoria` (`id_categoria`);
 
@@ -75,23 +94,23 @@ ALTER TABLE `itens`
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de tabela `itens`
+-- AUTO_INCREMENT de tabela `produtos`
 --
-ALTER TABLE `itens`
-  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `produtos`
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
 --
 
 --
--- Limitadores para a tabela `itens`
+-- Limitadores para a tabela `produtos`
 --
-ALTER TABLE `itens`
-  ADD CONSTRAINT `itens_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
+ALTER TABLE `produtos`
+  ADD CONSTRAINT `produtos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
