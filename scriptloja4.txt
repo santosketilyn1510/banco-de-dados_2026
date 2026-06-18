@@ -1,0 +1,411 @@
+Microsoft Windows [versão 10.0.19045.5131]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 36
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use loja
+Database changed
+MariaDB [loja]> show tables
+    -> ;
++----------------+
+| Tables_in_loja |
++----------------+
+| categorias     |
+| produtos       |
++----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [loja]> describe categorias
+    -> ;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.023 sec)
+
+MariaDB [loja]> describe produtos;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_produto    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome          | varchar(255)  | NO   |     | NULL    |                |
+| preco         | decimal(10,2) | NO   |     | NULL    |                |
+| quant         | int(11)       | NO   |     | NULL    |                |
+| observacoes   | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria  | int(11)       | YES  | MUL | NULL    |                |
+| data_cadastro | date          | YES  |     | NULL    |                |
+| marca         | date          | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.018 sec)
+
+MariaDB [loja]> select * from produtos;
++------------+-----------------+-------+-------+----------------+--------------+---------------+------------+
+| id_produto | nome            | preco | quant | observacoes    | id_categoria | data_cadastro | marca      |
++------------+-----------------+-------+-------+----------------+--------------+---------------+------------+
+|          1 | papel higienico | 17.50 |    20 |                |            5 | 2026-06-11    | 0000-00-00 |
+|          2 | macarrao        |  4.90 |   150 |                |            2 | 2026-06-11    | 0000-00-00 |
+|          3 | vestidos        | 49.90 |    50 | Tamanhos p/m/g |            3 | 2026-06-11    | 0000-00-00 |
+|          4 | desinfetante    |  6.40 |   200 |                |            4 | 2026-06-11    | 0000-00-00 |
+|          5 | celular         |  1.50 |    40 |                |            1 | 2026-06-11    | 0000-00-00 |
+|          6 | sabonete        |  1.50 |   140 |                |            5 | 2026-06-11    | 0000-00-00 |
+|          7 | detergente      |  2.50 |   240 |                |            4 | 2026-06-11    | 0000-00-00 |
+|          8 | fone            | 50.00 |    30 |                |            1 | 2026-06-11    | 0000-00-00 |
+|          9 | moletom         | 80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | 0000-00-00 |
+|         10 | arroz           | 25.00 |   160 |                |            2 | 2026-06-11    | 0000-00-00 |
+|         11 | feijao          |  9.90 |   160 |                |            2 | 2026-06-11    | 0000-00-00 |
++------------+-----------------+-------+-------+----------------+--------------+---------------+------------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]> select * from categorias;
++--------------+-------------+
+| id_categoria | categoria   |
++--------------+-------------+
+|            1 | eletronicos |
+|            2 | alimentos   |
+|            3 | roupas      |
+|            4 | limpeza     |
+|            5 | higiene     |
++--------------+-------------+
+5 rows in set (0.010 sec)
+
+MariaDB [loja]> alter table produtos modify column marca varchar(255);
+Query OK, 11 rows affected (0.113 sec)
+Records: 11  Duplicates: 0  Warnings: 0
+
+MariaDB [loja]> describe produtos;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_produto    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome          | varchar(255)  | NO   |     | NULL    |                |
+| preco         | decimal(10,2) | NO   |     | NULL    |                |
+| quant         | int(11)       | NO   |     | NULL    |                |
+| observacoes   | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria  | int(11)       | YES  | MUL | NULL    |                |
+| data_cadastro | date          | YES  |     | NULL    |                |
+| marca         | varchar(255)  | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.021 sec)
+
+MariaDB [loja]>  SELECT * FROM produtos;
++------------+-----------------+-------+-------+----------------+--------------+---------------+------------+
+| id_produto | nome            | preco | quant | observacoes    | id_categoria | data_cadastro | marca      |
++------------+-----------------+-------+-------+----------------+--------------+---------------+------------+
+|          1 | papel higienico | 17.50 |    20 |                |            5 | 2026-06-11    | 0000-00-00 |
+|          2 | macarrao        |  4.90 |   150 |                |            2 | 2026-06-11    | 0000-00-00 |
+|          3 | vestidos        | 49.90 |    50 | Tamanhos p/m/g |            3 | 2026-06-11    | 0000-00-00 |
+|          4 | desinfetante    |  6.40 |   200 |                |            4 | 2026-06-11    | 0000-00-00 |
+|          5 | celular         |  1.50 |    40 |                |            1 | 2026-06-11    | 0000-00-00 |
+|          6 | sabonete        |  1.50 |   140 |                |            5 | 2026-06-11    | 0000-00-00 |
+|          7 | detergente      |  2.50 |   240 |                |            4 | 2026-06-11    | 0000-00-00 |
+|          8 | fone            | 50.00 |    30 |                |            1 | 2026-06-11    | 0000-00-00 |
+|          9 | moletom         | 80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | 0000-00-00 |
+|         10 | arroz           | 25.00 |   160 |                |            2 | 2026-06-11    | 0000-00-00 |
+|         11 | feijao          |  9.90 |   160 |                |            2 | 2026-06-11    | 0000-00-00 |
++------------+-----------------+-------+-------+----------------+--------------+---------------+------------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT nome, preco FROM produtos;
++-----------------+-------+
+| nome            | preco |
++-----------------+-------+
+| papel higienico | 17.50 |
+| macarrao        |  4.90 |
+| vestidos        | 49.90 |
+| desinfetante    |  6.40 |
+| celular         |  1.50 |
+| sabonete        |  1.50 |
+| detergente      |  2.50 |
+| fone            | 50.00 |
+| moletom         | 80.00 |
+| arroz           | 25.00 |
+| feijao          |  9.90 |
++-----------------+-------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos WHERE marca = 'Samsung';
+Empty set (0.001 sec)
+
+MariaDB [loja]> update produtos set marca = 'adria' where id_produto = 2;
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'neve' where id_produto = 1;
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'não tem' where id produto = 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'produto = 3' at line 1
+MariaDB [loja]> update produtos set marca = 'não tem' where id_produto = 3;
+Query OK, 1 row affected (0.017 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'ypê' where id_produto = 4;
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'motorola' where id_produto = 5;
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'nivea' where id_produto = 6;
+Query OK, 1 row affected (0.015 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'limpol' where id_produto = 7;
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'jbl' where id_produto = 8;
+Query OK, 1 row affected (0.007 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'gap' where id_produto = 9;
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'namorado' where id_produto = 10;
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> update produtos set marca = 'nenê' where id_produto = 11;
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> SELECT * FROM produtos WHERE marca = 'motorola';
++------------+---------+-------+-------+-------------+--------------+---------------+----------+
+| id_produto | nome    | preco | quant | observacoes | id_categoria | data_cadastro | marca    |
++------------+---------+-------+-------+-------------+--------------+---------------+----------+
+|          5 | celular |  1.50 |    40 |             |            1 | 2026-06-11    | motorola |
++------------+---------+-------+-------+-------------+--------------+---------------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos WHERE preco > 15;
++------------+-----------------+-------+-------+----------------+--------------+---------------+----------+
+| id_produto | nome            | preco | quant | observacoes    | id_categoria | data_cadastro | marca    |
++------------+-----------------+-------+-------+----------------+--------------+---------------+----------+
+|          1 | papel higienico | 17.50 |    20 |                |            5 | 2026-06-11    | neve     |
+|          3 | vestidos        | 49.90 |    50 | Tamanhos p/m/g |            3 | 2026-06-11    | não tem  |
+|          8 | fone            | 50.00 |    30 |                |            1 | 2026-06-11    | jbl      |
+|          9 | moletom         | 80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | gap      |
+|         10 | arroz           | 25.00 |   160 |                |            2 | 2026-06-11    | namorado |
++------------+-----------------+-------+-------+----------------+--------------+---------------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> update produtos set preco = '1.800' where id_produto = 5;
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> SELECT * FROM produtos WHERE quant <= 80;
++------------+-----------------+-------+-------+----------------+--------------+---------------+----------+
+| id_produto | nome            | preco | quant | observacoes    | id_categoria | data_cadastro | marca    |
++------------+-----------------+-------+-------+----------------+--------------+---------------+----------+
+|          1 | papel higienico | 17.50 |    20 |                |            5 | 2026-06-11    | neve     |
+|          3 | vestidos        | 49.90 |    50 | Tamanhos p/m/g |            3 | 2026-06-11    | não tem  |
+|          5 | celular         |  1.80 |    40 |                |            1 | 2026-06-11    | motorola |
+|          8 | fone            | 50.00 |    30 |                |            1 | 2026-06-11    | jbl      |
+|          9 | moletom         | 80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | gap      |
++------------+-----------------+-------+-------+----------------+--------------+---------------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT nome, preco FROM produtos ORDER BY preco ASC LIMIT 5;
++--------------+-------+
+| nome         | preco |
++--------------+-------+
+| sabonete     |  1.50 |
+| celular      |  1.80 |
+| detergente   |  2.50 |
+| macarrao     |  4.90 |
+| desinfetante |  6.40 |
++--------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT nome, preco FROM produtos ORDER BY preco DESC LIMIT 5;
++-----------------+-------+
+| nome            | preco |
++-----------------+-------+
+| moletom         | 80.00 |
+| fone            | 50.00 |
+| vestidos        | 49.90 |
+| arroz           | 25.00 |
+| papel higienico | 17.50 |
++-----------------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> update produtos set preco = '1800.00' where id_produto = 5;
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [loja]> SELECT * FROM produtos WHERE preco > 15;
++------------+-----------------+---------+-------+----------------+--------------+---------------+----------+
+| id_produto | nome            | preco   | quant | observacoes    | id_categoria | data_cadastro | marca    |
++------------+-----------------+---------+-------+----------------+--------------+---------------+----------+
+|          1 | papel higienico |   17.50 |    20 |                |            5 | 2026-06-11    | neve     |
+|          3 | vestidos        |   49.90 |    50 | Tamanhos p/m/g |            3 | 2026-06-11    | não tem  |
+|          5 | celular         | 1800.00 |    40 |                |            1 | 2026-06-11    | motorola |
+|          8 | fone            |   50.00 |    30 |                |            1 | 2026-06-11    | jbl      |
+|          9 | moletom         |   80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | gap      |
+|         10 | arroz           |   25.00 |   160 |                |            2 | 2026-06-11    | namorado |
++------------+-----------------+---------+-------+----------------+--------------+---------------+----------+
+6 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT COUNT(*) AS total_produtos FROM produtos;
++----------------+
+| total_produtos |
++----------------+
+|             11 |
++----------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT AVG(preco) AS preco_medio FROM produtos;
++-------------+
+| preco_medio |
++-------------+
+|  186.145455 |
++-------------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT nome, quant FROM produtos ORDER BY quant DESC LIMIT 1;
++------------+-------+
+| nome       | quant |
++------------+-------+
+| detergente |   240 |
++------------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT p.nome, c.nome_cat FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria
+    -> ;
+ERROR 1054 (42S22): Unknown column 'c.nome_cat' in 'field list'
+MariaDB [loja]> describe categorias;
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id_categoria | int(11)      | NO   | PRI | NULL    | auto_increment |
+| categoria    | varchar(255) | YES  |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+2 rows in set (0.024 sec)
+
+MariaDB [loja]> describe produtos;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| id_produto    | int(11)       | NO   | PRI | NULL    | auto_increment |
+| nome          | varchar(255)  | NO   |     | NULL    |                |
+| preco         | decimal(10,2) | NO   |     | NULL    |                |
+| quant         | int(11)       | NO   |     | NULL    |                |
+| observacoes   | varchar(255)  | YES  |     | NULL    |                |
+| id_categoria  | int(11)       | YES  | MUL | NULL    |                |
+| data_cadastro | date          | YES  |     | NULL    |                |
+| marca         | varchar(255)  | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+8 rows in set (0.015 sec)
+
+MariaDB [loja]> SELECT p.nome, c.categoria FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria;
++-----------------+-------------+
+| nome            | categoria   |
++-----------------+-------------+
+| celular         | eletronicos |
+| fone            | eletronicos |
+| macarrao        | alimentos   |
+| arroz           | alimentos   |
+| feijao          | alimentos   |
+| vestidos        | roupas      |
+| moletom         | roupas      |
+| desinfetante    | limpeza     |
+| detergente      | limpeza     |
+| papel higienico | higiene     |
+| sabonete        | higiene     |
++-----------------+-------------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT p.nome, p.marca, p.preco FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria WHERE c.categoria = 'alimentos'
+    -> ;
++----------+----------+-------+
+| nome     | marca    | preco |
++----------+----------+-------+
+| macarrao | adria    |  4.90 |
+| arroz    | namorado | 25.00 |
+| feijao   | nenê     |  9.90 |
++----------+----------+-------+
+3 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT c.categoria, COUNT(*) AS totalprodutos FROM produtos p JOIN categorias c ON p.id_categoria = c.id_categoria GROUP BY c.categoria;
++-------------+---------------+
+| categoria   | totalprodutos |
++-------------+---------------+
+| alimentos   |             3 |
+| eletronicos |             2 |
+| higiene     |             2 |
+| limpeza     |             2 |
+| roupas      |             2 |
++-------------+---------------+
+5 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> WHERE preco BETWEEN 10 AND 20;
++------------+-----------------+-------+-------+-------------+--------------+---------------+-------+
+| id_produto | nome            | preco | quant | observacoes | id_categoria | data_cadastro | marca |
++------------+-----------------+-------+-------+-------------+--------------+---------------+-------+
+|          1 | papel higienico | 17.50 |    20 |             |            5 | 2026-06-11    | neve  |
++------------+-----------------+-------+-------+-------------+--------------+---------------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> WHERE nome LIKE 'M%';
++------------+----------+-------+-------+----------------+--------------+---------------+-------+
+| id_produto | nome     | preco | quant | observacoes    | id_categoria | data_cadastro | marca |
++------------+----------+-------+-------+----------------+--------------+---------------+-------+
+|          2 | macarrao |  4.90 |   150 |                |            2 | 2026-06-11    | adria |
+|          9 | moletom  | 80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | gap   |
++------------+----------+-------+-------+----------------+--------------+---------------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT * FROM produtos
+    -> ;
++------------+-----------------+---------+-------+----------------+--------------+---------------+----------+
+| id_produto | nome            | preco   | quant | observacoes    | id_categoria | data_cadastro | marca    |
++------------+-----------------+---------+-------+----------------+--------------+---------------+----------+
+|          1 | papel higienico |   17.50 |    20 |                |            5 | 2026-06-11    | neve     |
+|          2 | macarrao        |    4.90 |   150 |                |            2 | 2026-06-11    | adria    |
+|          3 | vestidos        |   49.90 |    50 | Tamanhos p/m/g |            3 | 2026-06-11    | não tem  |
+|          4 | desinfetante    |    6.40 |   200 |                |            4 | 2026-06-11    | ypê      |
+|          5 | celular         | 1800.00 |    40 |                |            1 | 2026-06-11    | motorola |
+|          6 | sabonete        |    1.50 |   140 |                |            5 | 2026-06-11    | nivea    |
+|          7 | detergente      |    2.50 |   240 |                |            4 | 2026-06-11    | limpol   |
+|          8 | fone            |   50.00 |    30 |                |            1 | 2026-06-11    | jbl      |
+|          9 | moletom         |   80.00 |    60 | Tamanhos p/m/g |            3 | 2026-06-11    | gap      |
+|         10 | arroz           |   25.00 |   160 |                |            2 | 2026-06-11    | namorado |
+|         11 | feijao          |    9.90 |   160 |                |            2 | 2026-06-11    | nenê     |
++------------+-----------------+---------+-------+----------------+--------------+---------------+----------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]> SELECT DISTINCT marca FROM produtos;
++----------+
+| marca    |
++----------+
+| neve     |
+| adria    |
+| não tem  |
+| ypê      |
+| motorola |
+| nivea    |
+| limpol   |
+| jbl      |
+| gap      |
+| namorado |
+| nenê     |
++----------+
+11 rows in set (0.001 sec)
+
+MariaDB [loja]>
