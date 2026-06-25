@@ -1,0 +1,264 @@
+Microsoft Windows [versão 10.0.19045.5131]
+(c) Microsoft Corporation. Todos os direitos reservados.
+
+C:\Users\Aluno>cd C:\xampp\mysql\bin
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 56
+Server version: 10.4.27-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database livraria;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use livraria;
+Database changed
+MariaDB [livraria]> describe table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table' at line 1
+MariaDB [livraria]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [livraria]> CREATE TABLE `livros` (
+    ->   `id_livro` int(11) NOT NULL,
+    ->   `titulo` varchar(255) DEFAULT NULL,
+    ->   `autor` varchar(255) DEFAULT NULL,
+    ->   `preco` decimal(10,2) DEFAULT NULL,
+    ->   `estoque` int(11) DEFAULT NULL,
+    ->   `id_categoria` int(11) DEFAULT NULL
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+Query OK, 0 rows affected (0.033 sec)
+
+MariaDB [livraria]> describe livros;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| id_livro     | int(11)       | NO   |     | NULL    |       |
+| titulo       | varchar(255)  | YES  |     | NULL    |       |
+| autor        | varchar(255)  | YES  |     | NULL    |       |
+| preco        | decimal(10,2) | YES  |     | NULL    |       |
+| estoque      | int(11)       | YES  |     | NULL    |       |
+| id_categoria | int(11)       | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+6 rows in set (0.020 sec)
+
+MariaDB [livraria]> insert into livros(titulo, autor, preco, estoque, id_categoria)values('python para todos','Charles Severance', 95.00, 20, 1);
+Query OK, 1 row affected, 1 warning (0.013 sec)
+
+MariaDB [livraria]> CREATE TABLE `categorias` (
+    ->   `id_categoria` int(11) NOT NULL,
+    ->   `nome_cat` varchar(100) DEFAULT NULL
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+Query OK, 0 rows affected (0.036 sec)
+
+MariaDB [livraria]> describe categorias;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id_categoria | int(11)      | NO   |     | NULL    |       |
+| nome_cat     | varchar(100) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+2 rows in set (0.021 sec)
+
+MariaDB [livraria]> INSERT INTO `categorias` (`id_categoria`, `nome_cat`) VALUES
+    -> (1, 'Tecnologia'),
+    -> (2, 'Romance'),
+    -> (3, 'Ciência');
+Query OK, 3 rows affected (0.005 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [livraria]> describe categorias;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id_categoria | int(11)      | NO   |     | NULL    |       |
+| nome_cat     | varchar(100) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+2 rows in set (0.023 sec)
+
+MariaDB [livraria]> INSERT INTO `livros` (`id_livro`, `titulo`, `autor`, `preco`, `estoque`, `id_categoria`) VALUES
+    -> (1, 'Redes de Computadores', 'Andrew Tanenbaum', 189.90, 15, 1),
+    -> (2, 'Banco de Dados Completo', 'Carlos A. Heuser', 120.00, 8, 1),
+    -> (3, 'Dom Casmurro', 'Machado de Assis', 39.90, 30, 2),
+    -> (4, 'O Senhor dos Anéis', 'J.R.R. Tolkien', 79.90, 20, 2),
+    -> (5, 'Uma Breve História do Tempo', 'Stephen Hawking', 59.90, 12, 3),
+    -> (6, 'Cosmos', 'Carl Sagan', 69.90, 5, 3);
+Query OK, 6 rows affected (0.014 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [livraria]> update livros set preco = 79.90 where titulo = 'Cosmos';
+Query OK, 1 row affected (0.014 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [livraria]> select * from livros;
++----------+-----------------------------+-------------------+--------+---------+--------------+
+| id_livro | titulo                      | autor             | preco  | estoque | id_categoria |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+|        0 | python para todos           | Charles Severance |  95.00 |      20 |            1 |
+|        1 | Redes de Computadores       | Andrew Tanenbaum  | 189.90 |      15 |            1 |
+|        2 | Banco de Dados Completo     | Carlos A. Heuser  | 120.00 |       8 |            1 |
+|        3 | Dom Casmurro                | Machado de Assis  |  39.90 |      30 |            2 |
+|        4 | O Senhor dos Anéis          | J.R.R. Tolkien    |  79.90 |      20 |            2 |
+|        5 | Uma Breve História do Tempo | Stephen Hawking   |  59.90 |      12 |            3 |
+|        6 | Cosmos                      | Carl Sagan        |  79.90 |       5 |            3 |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [livraria]> update livros set estoque = 10 where titulo = 'Cosmos';
+Query OK, 1 row affected (0.015 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [livraria]> select * from livros;
++----------+-----------------------------+-------------------+--------+---------+--------------+
+| id_livro | titulo                      | autor             | preco  | estoque | id_categoria |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+|        0 | python para todos           | Charles Severance |  95.00 |      20 |            1 |
+|        1 | Redes de Computadores       | Andrew Tanenbaum  | 189.90 |      15 |            1 |
+|        2 | Banco de Dados Completo     | Carlos A. Heuser  | 120.00 |       8 |            1 |
+|        3 | Dom Casmurro                | Machado de Assis  |  39.90 |      30 |            2 |
+|        4 | O Senhor dos Anéis          | J.R.R. Tolkien    |  79.90 |      20 |            2 |
+|        5 | Uma Breve História do Tempo | Stephen Hawking   |  59.90 |      12 |            3 |
+|        6 | Cosmos                      | Carl Sagan        |  79.90 |      10 |            3 |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [livraria]> delete from livros where titulo = 3;
+Query OK, 0 rows affected, 7 warnings (0.001 sec)
+
+MariaDB [livraria]> select * from livros;
++----------+-----------------------------+-------------------+--------+---------+--------------+
+| id_livro | titulo                      | autor             | preco  | estoque | id_categoria |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+|        0 | python para todos           | Charles Severance |  95.00 |      20 |            1 |
+|        1 | Redes de Computadores       | Andrew Tanenbaum  | 189.90 |      15 |            1 |
+|        2 | Banco de Dados Completo     | Carlos A. Heuser  | 120.00 |       8 |            1 |
+|        3 | Dom Casmurro                | Machado de Assis  |  39.90 |      30 |            2 |
+|        4 | O Senhor dos Anéis          | J.R.R. Tolkien    |  79.90 |      20 |            2 |
+|        5 | Uma Breve História do Tempo | Stephen Hawking   |  59.90 |      12 |            3 |
+|        6 | Cosmos                      | Carl Sagan        |  79.90 |      10 |            3 |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [livraria]> delete from livros where titulo, autor, preco, estoque, id_categoria = 3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' autor, preco, estoque, id_categoria = 3' at line 1
+MariaDB [livraria]> delete from livros where titulo = 3;
+Query OK, 0 rows affected, 7 warnings (0.001 sec)
+
+MariaDB [livraria]> delete from titulo where 'Dom Casmurro' = 3;
+ERROR 1146 (42S02): Table 'livraria.titulo' doesn't exist
+MariaDB [livraria]> delete from titulo where 2 = 3;
+ERROR 1146 (42S02): Table 'livraria.titulo' doesn't exist
+MariaDB [livraria]> delete from liveos where 2 = 3;
+ERROR 1146 (42S02): Table 'livraria.liveos' doesn't exist
+MariaDB [livraria]> delete from livros where 2 = 3;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [livraria]> select * from livros;
++----------+-----------------------------+-------------------+--------+---------+--------------+
+| id_livro | titulo                      | autor             | preco  | estoque | id_categoria |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+|        0 | python para todos           | Charles Severance |  95.00 |      20 |            1 |
+|        1 | Redes de Computadores       | Andrew Tanenbaum  | 189.90 |      15 |            1 |
+|        2 | Banco de Dados Completo     | Carlos A. Heuser  | 120.00 |       8 |            1 |
+|        3 | Dom Casmurro                | Machado de Assis  |  39.90 |      30 |            2 |
+|        4 | O Senhor dos Anéis          | J.R.R. Tolkien    |  79.90 |      20 |            2 |
+|        5 | Uma Breve História do Tempo | Stephen Hawking   |  59.90 |      12 |            3 |
+|        6 | Cosmos                      | Carl Sagan        |  79.90 |      10 |            3 |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+7 rows in set (0.001 sec)
+
+MariaDB [livraria]> delete from livros where id_livro = 3;
+Query OK, 1 row affected (0.013 sec)
+
+MariaDB [livraria]> select * from livros;
++----------+-----------------------------+-------------------+--------+---------+--------------+
+| id_livro | titulo                      | autor             | preco  | estoque | id_categoria |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+|        0 | python para todos           | Charles Severance |  95.00 |      20 |            1 |
+|        1 | Redes de Computadores       | Andrew Tanenbaum  | 189.90 |      15 |            1 |
+|        2 | Banco de Dados Completo     | Carlos A. Heuser  | 120.00 |       8 |            1 |
+|        4 | O Senhor dos Anéis          | J.R.R. Tolkien    |  79.90 |      20 |            2 |
+|        5 | Uma Breve História do Tempo | Stephen Hawking   |  59.90 |      12 |            3 |
+|        6 | Cosmos                      | Carl Sagan        |  79.90 |      10 |            3 |
++----------+-----------------------------+-------------------+--------+---------+--------------+
+6 rows in set (0.001 sec)
+
+MariaDB [livraria]> select titulo, preco from livros;
++-----------------------------+--------+
+| titulo                      | preco  |
++-----------------------------+--------+
+| python para todos           |  95.00 |
+| Redes de Computadores       | 189.90 |
+| Banco de Dados Completo     | 120.00 |
+| O Senhor dos Anéis          |  79.90 |
+| Uma Breve História do Tempo |  59.90 |
+| Cosmos                      |  79.90 |
++-----------------------------+--------+
+6 rows in set (0.000 sec)
+
+MariaDB [livraria]> select * from livros where preco > 60;
++----------+-------------------------+-------------------+--------+---------+--------------+
+| id_livro | titulo                  | autor             | preco  | estoque | id_categoria |
++----------+-------------------------+-------------------+--------+---------+--------------+
+|        0 | python para todos       | Charles Severance |  95.00 |      20 |            1 |
+|        1 | Redes de Computadores   | Andrew Tanenbaum  | 189.90 |      15 |            1 |
+|        2 | Banco de Dados Completo | Carlos A. Heuser  | 120.00 |       8 |            1 |
+|        4 | O Senhor dos Anéis      | J.R.R. Tolkien    |  79.90 |      20 |            2 |
+|        6 | Cosmos                  | Carl Sagan        |  79.90 |      10 |            3 |
++----------+-------------------------+-------------------+--------+---------+--------------+
+5 rows in set (0.001 sec)
+
+MariaDB [livraria]> select l.titulo, l.preco, c.categorias from produtos l join categorias c on l.id_categoria = c.id_categoria;
+ERROR 1146 (42S02): Table 'livraria.produtos' doesn't exist
+MariaDB [livraria]> select p.titulo, p.preco, c.categorias from produtos p join categorias c on p.id_categoria = c.id_categoria;
+ERROR 1146 (42S02): Table 'livraria.produtos' doesn't exist
+MariaDB [livraria]> select * from produtos where titulo like 'p%'
+    -> ;
+ERROR 1146 (42S02): Table 'livraria.produtos' doesn't exist
+MariaDB [livraria]> select p.titulo, c.categorias from livros p join categorias c on p.id_categoria = c. id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.categorias' in 'field list'
+MariaDB [livraria]> select p.titulo, c.categoria from livros p join categorias c on p.id_categoria = c. id_categoria;
+ERROR 1054 (42S22): Unknown column 'c.categoria' in 'field list'
+MariaDB [livraria]> select p.titulo, c.id_categoria from livros p join categorias c on p.id_categoria = c. id_categoria;
++-----------------------------+--------------+
+| titulo                      | id_categoria |
++-----------------------------+--------------+
+| python para todos           |            1 |
+| Redes de Computadores       |            1 |
+| Banco de Dados Completo     |            1 |
+| O Senhor dos Anéis          |            2 |
+| Uma Breve História do Tempo |            3 |
+| Cosmos                      |            3 |
++-----------------------------+--------------+
+6 rows in set (0.001 sec)
+
+MariaDB [livraria]> select p.titulo, p.preco from livros p join categorias c on p.id_categoria = c. id_categoria;
++-----------------------------+--------+
+| titulo                      | preco  |
++-----------------------------+--------+
+| python para todos           |  95.00 |
+| Redes de Computadores       | 189.90 |
+| Banco de Dados Completo     | 120.00 |
+| O Senhor dos Anéis          |  79.90 |
+| Uma Breve História do Tempo |  59.90 |
+| Cosmos                      |  79.90 |
++-----------------------------+--------+
+6 rows in set (0.001 sec)
+
+MariaDB [livraria]> select p.titulo, p.preco, c.nome_cat from livros p join categorias c on p.id_categoria = c. id_categoria;
++-----------------------------+--------+------------+
+| titulo                      | preco  | nome_cat   |
++-----------------------------+--------+------------+
+| python para todos           |  95.00 | Tecnologia |
+| Redes de Computadores       | 189.90 | Tecnologia |
+| Banco de Dados Completo     | 120.00 | Tecnologia |
+| O Senhor dos Anéis          |  79.90 | Romance    |
+| Uma Breve História do Tempo |  59.90 | Ciência    |
+| Cosmos                      |  79.90 | Ciência    |
++-----------------------------+--------+------------+
+6 rows in set (0.001 sec)
+
+MariaDB [livraria]>
