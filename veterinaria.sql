@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30/07/2026 às 17:21
+-- Tempo de geração: 13/08/2026 às 00:02
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -45,7 +45,7 @@ CREATE TABLE `animais` (
 INSERT INTO `animais` (`idanimais`, `idcliente`, `nomeanimais`, `especie`, `raca`, `datanascimento`) VALUES
 (1, 1, 'luke', 'cachorro', 'RD', '2024-06-21'),
 (2, 2, 'lua', 'cachorro', 'shitzu', '2024-08-16'),
-(3, 3, 'artur', 'coelho', 'nova zelandia branco', '2025-07-06');
+(3, 3, 'Bobby', 'coelho', 'nova zelandia branco', '2025-07-06');
 
 -- --------------------------------------------------------
 
@@ -62,6 +62,17 @@ CREATE TABLE `atendimento` (
   `descricao` varchar(255) NOT NULL,
   `valor` decimal(7,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `atendimento`
+--
+
+INSERT INTO `atendimento` (`idatendimento`, `idanimal`, `idveterinario`, `datanascimentono`, `horaatendimento`, `descricao`, `valor`) VALUES
+(1, 3, 1, '2009-07-30', '11:30:05', 'paciente estava com carrapatos tomou medicamentos e tomou vacina anti pulgas ', 200.00),
+(2, 2, 2, '2024-08-16', '12:40:05', 'consulta de rotina', 150.00),
+(3, 1, 2, '2026-08-21', '15:00:00', 'paciente estava com otite no ouvido esquerdo tomou soro na veia e tomou vacina antinflamatória', 350.00),
+(4, 2, 2, '2026-08-16', '14:00:00', 'paciente estava vomitando tomou soro na veia e medicamentos para o estomago', 100.00),
+(5, 1, 1, '2026-08-21', '11:30:42', 'consulta de rotina', 150.00);
 
 -- --------------------------------------------------------
 
@@ -84,7 +95,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`idcliente`, `nomecli`, `telefone`, `email`, `cpf`, `endereço`) VALUES
 (1, 'livia alves', '35 99856 3181', 'liviaalvesetec25@gmail.com', '569.171.798-76', 'rua severina pinheiro de sousa 60'),
-(2, 'jordana dos santos', '11 95520 6082', 'jordana_biosantos@hotmail.com', '363.341.108-96', 'rua peri 57'),
+(2, 'jordana dos santos', '11 95520 6082', 'jordana_biosantos@hotmail.com', '363.341.108-96', 'Nova Rua, 50'),
 (3, 'ketilyn santos', '11 91340 4157', 'santosketilyn1510@gmail.com', '470.462.588-56', 'rua peri 57');
 
 -- --------------------------------------------------------
@@ -100,6 +111,14 @@ CREATE TABLE `veterinario` (
   `especialidade` varchar(100) NOT NULL,
   `crmv` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `veterinario`
+--
+
+INSERT INTO `veterinario` (`idveterinario`, `nomevet`, `telefone`, `especialidade`, `crmv`) VALUES
+(1, 'laura reis', '11 9864-8674', 'clinico geral', 'CRMV-SP 12345'),
+(2, 'arthur miguel', '11 96757-9786', 'Neurologia', 'CRMV-RJ 67890');
 
 --
 -- Índices para tabelas despejadas
@@ -149,7 +168,7 @@ ALTER TABLE `animais`
 -- AUTO_INCREMENT de tabela `atendimento`
 --
 ALTER TABLE `atendimento`
-  MODIFY `idatendimento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idatendimento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
@@ -161,7 +180,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de tabela `veterinario`
 --
 ALTER TABLE `veterinario`
-  MODIFY `idveterinario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idveterinario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas
